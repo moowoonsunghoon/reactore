@@ -49,26 +49,36 @@ import { Reactore } from "./App";
 const Counter = () => {
   const { data, modify } = useReactore<Reactore>();
 
+  const increament = () => {
+    modify({
+      count: data.count + 1,
+    });
+  };
+
+  const decreament = () => {
+    modify({
+      count: data.count - 1,
+    });
+  };
+
+  const like = () => {
+    if (data.liked) {
+      modify({
+        liked: false,
+      });
+    } else {
+      modify({
+        liked: true,
+      });
+    }
+  };
+
   return (
     <div>
-      <p
-        onClick={() => {
-          modify({
-            count: data.count + 1,
-          });
-        }}
-      >
-        {data.count}
-      </p>
-      <p
-        onClick={() => {
-          modify({
-            liked: !data.liked,
-          });
-        }}
-      >
-        {data.liked ? "liked" : "unliked"}
-      </p>
+      <p>{data.count}</p>
+      <button onClick={increament}>+</button>
+      <button onClick={decreament}>-</button>
+      <p onClick={like}>{data.liked ? "liked" : "unliked"}</p>
     </div>
   );
 };
